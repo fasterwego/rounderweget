@@ -41,6 +41,16 @@ build/Release
 node_modules/
 jspm_packages/
 
+# app specific 
+test-files/
+spotify.db
+.vscode/
+*.code-workspace
+.eslintrc.json
+*.ts
+clientid.txt
+package-lock.json
+
 # TypeScript v1 declaration files
 typings/
 

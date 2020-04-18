@@ -1,0 +1,28 @@
+{
+  "name": "rounderweget",
+  "version": "0.0.1",
+  "description": "some spotify utilities",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fasterwego/rounderweget.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fasterwego/rounderweget/issues"
+  },
+  "homepage": "https://github.com/fasterwego/rounderweget#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "spotify-web-api-node": "^4.0.0",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "jest": "^25.3.0"
+  }
+}
