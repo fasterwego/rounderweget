@@ -1,8 +1,36 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+/* .control-row {
+    padding: 15px 15px;
+} */
+
+/* .num-control {
+    display: inline;
+}
+
+.control-label {
+    display: inline;
+} */
+
+/* #danceability {
+    background-color: lightgray;
+} */
+
+.even {
+    background-color: lightgray;
+}
+
+.form-group {
+    padding: 10px 5px 5px 5px;
+}
+
+.row-label {
+    padding-top: 16px;
 }
