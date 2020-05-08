@@ -2,4 +2,11 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  .row
+    div(class="row buttons col-lg-8 offset-lg-2")
+      div(class="login col-lg")
+        a(href="/spotify/login", class="btn btn-primary") Login
+      div(class="research col-lg")
+        a(href="/spotify/research", class="btn btn-secondary") Research
+      div(class="genres col-lg")
+        a(href="/spotify/genres", class="btn btn-info") Available Genres

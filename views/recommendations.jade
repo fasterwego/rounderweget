@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  each val in data.body.tracks.length ? data.body.tracks : 'no values'
+    div(class="row card")
+      .card-body
+        h5(class="card-title") #{val.name}
+        each artist in val.artists
+          p #{artist.name}

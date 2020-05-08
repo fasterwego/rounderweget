@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  div(class='row')
+    table(class="table table-striped table-bordered table-hover")
+      thead
+        tr
+          th Genres
+      tbody
+        each val in data.body.genres.length ? data.body.genres : 'no values'
+          tr
+            td
+              text= val

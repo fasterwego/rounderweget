@@ -2,250 +2,296 @@ extends layout
 
 block content
   h1= title
-  p You can put up to 5 seeds of any combination of track id, artist id, or #[a(href='#') genre string].  For now you will have to copy from Spotify App (or type in a genre).  Then you can adjust min/max/target for each variable (or not, you can leave them blank).
+  p You can put up to 5 seeds of any combination of track id, artist id, or #[a(href='/spotify/genres') genre string].  For now you will have to copy from Spotify App (or type in a genre).  Then you can adjust min/max/target for each variable (or not, you can leave them blank).
   div#spotify-controls(class='row form-group')
-    form(action='/', method='post')
-      #seeds(class='row form-group')
+    form(action='/spotify/research', method='post')
+      #seed-tracks(class='row form-group')
+        h2 Seed Tracks
         div(class='row col-lg-12')
-          label(for='seed1' class='col-lg-2 col-form-label row-label') Seed #1
+          label(for='track-seed-1' class='col-lg-2 col-form-label row-label') Seed #1
           .input-class.col-lg-10
-            input(id='seed1', type='text', class='form-control')
+            input(id='track-seed-1', name='track-seed-1', type='text', class='form-control')
         div(class='row col-lg-12')
-          label(for='seed2' class='col-lg-2 col-form-label row-label') Seed #2
+          label(for='track-seed-2' class='col-lg-2 col-form-label row-label') Seed #2
           .input-class.col-lg-10
-            input(id='seed2', type='text', class='form-control')
+            input(id='track-seed-2', name='track-seed-2', type='text', class='form-control')
         div(class='row col-lg-12')
-          label(for='seed3' class='col-lg-2 col-form-label row-label') Seed #3
+          label(for='track-seed-3' class='col-lg-2 col-form-label row-label') Seed #3
           .input-class.col-lg-10
-            input(id='seed3', type='text', class='form-control')
+            input(id='track-seed-3', name='track-seed-3', type='text', class='form-control')
         div(class='row col-lg-12')
-          label(for='seed4' class='col-lg-2 col-form-label row-label') Seed #4
+          label(for='track-seed-4' class='col-lg-2 col-form-label row-label') Seed #4
           .input-class.col-lg-10
-            input(id='seed4', type='text', class='form-control')
+            input(id='track-seed-4', name='track-seed-4', type='text', class='form-control')
         div(class='row col-lg-12')
-          label(for='seed5' class='col-lg-2 col-form-label row-label') Seed #5
+          label(for='track-seed-5' class='col-lg-2 col-form-label row-label') Seed #5
           .input-class.col-lg-10
-            input(id='seed5', type='text', class='form-control')
+            input(id='track-seed-5', name='track-seed-5', type='text', class='form-control')
+        hr(class='my-2')
+      #seed-artists(class='row form-group')
+        h2 Seed Artists
+        div(class='row col-lg-12')
+          label(for='artist-seed-1' class='col-lg-2 col-form-label row-label') Seed #1
+          .input-class.col-lg-10
+            input(id='artist-seed-1', name='artist-seed-1', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='artist-seed-2' class='col-lg-2 col-form-label row-label') Seed #2
+          .input-class.col-lg-10
+            input(id='artist-seed-2', name='artist-seed-2', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='artist-seed-3' class='col-lg-2 col-form-label row-label') Seed #3
+          .input-class.col-lg-10
+            input(id='artist-seed-3', name='artist-seed-3', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='artist-seed-4' class='col-lg-2 col-form-label row-label') Seed #4
+          .input-class.col-lg-10
+            input(id='artist-seed-4', name='artist-seed-4', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='artist-seed-5' class='col-lg-2 col-form-label row-label') Seed #5
+          .input-class.col-lg-10
+            input(id='artist-seed-5', name='artist-seed-5', type='text', class='form-control')
+      #seed-genres(class='row form-group')
+        h2 Seed Genres
+        div(class='row col-lg-12')
+          label(for='genre-seed-1' class='col-lg-2 col-form-label row-label') Seed #1
+          .input-class.col-lg-10
+            input(id='genre-seed-1', name='genre-seed-1', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='genre-seed-2' class='col-lg-2 col-form-label row-label') Seed #2
+          .input-class.col-lg-10
+            input(id='genre-seed-2', name='genre-seed-2', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='genre-seed-3' class='col-lg-2 col-form-label row-label') Seed #3
+          .input-class.col-lg-10
+            input(id='genre-seed-3', name='genre-seed-3', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='genre-seed-4' class='col-lg-2 col-form-label row-label') Seed #4
+          .input-class.col-lg-10
+            input(id='genre-seed-4', name='genre-seed-4', type='text', class='form-control')
+        div(class='row col-lg-12')
+          label(for='genre-seed-5' class='col-lg-2 col-form-label row-label') Seed #5
+          .input-class.col-lg-10
+            input(id='genre-seed-5', name='genre-seed-5', type='text', class='form-control')
       #danceability(class='row form-group even')
         label(class='row col-lg-2 col-form-label row-label') Danceability
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='dance-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_danceability', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='dance-min', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='min_danceability', name='min_danceability', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='dance-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_danceability', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='dance-max', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='max_danceability', name='max_danceability', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='dance-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_danceability', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='dance-target', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='target_danceability', name='target_danceability', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable
       #energy(class='row form-group')
         label(class='row col-lg-2 col-form-label row-label') Energy
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='energy-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_energy', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='energy-min', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='min_energy', name='min_energy', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='energy-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_energy', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='energy-max', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='max_energy', name='max_energy', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='energy-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_energy', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='energy-target', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='target_energy', name='target_energy', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.
       #instr(class='row form-group even')
         label(class='row col-lg-2 col-form-label row-label') Instrumentalness
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='instr-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_instrumentalness', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='instr-min', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='min_instrumentalness', name='min_instrumentalness', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='instr-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_instrumentalness', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='instr-max', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='max_instrumentalness', name='max_instrumentalness', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='instr-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_instrumentalness', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='instr-target', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='target_instrumentalness', name='target_instrumentalness', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
       #key(class='row form-group')
         label(class='row col-lg-2 col-form-label row-label') Key
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='key-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_key', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='key-min', type='number', min=0, max=8, step=1, class='num-control form-control')
+              input(id='min_key', name='min_key', type='number', min=0, max=8, step=1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='key-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_key', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='key-max', type='number', min=0, max=8, step=1, class='num-control form-control')
+              input(id='max_key', name='max_key', type='number', min=0, max=8, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='key-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_key', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='key-target', type='number', min=0, max=8, step=1, class='num-control form-control')
+              input(id='target_key', name='target_key', type='number', min=0, max=8, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on.
       #loud(class='row form-group even')
         label(class='row col-lg-2 col-form-label row-label') Loudness
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='loud-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_loudness', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='loud-min', type='number', min=-60, max=0, step=1, class='num-control form-control')
+              input(id='min_loudness', name='min_loudness', type='number', min=-60, max=0, step=1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='loud-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_loudness', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='loud-max', type='number', min=-60, max=0, step=1, class='num-control form-control')
+              input(id='max_loudness', name='max_loudness', type='number', min=-60, max=0, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='loud-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_loudness', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='loud-target', type='number', min=-60, max=0, step=1, class='num-control form-control')
+              input(id='target_loudness', name='target_loudness', type='number', min=-60, max=0, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.
       #mode(class='row form-group')
         label(class='row col-lg-2 col-form-label row-label') Mode
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='mode-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_mode', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='mode-min', type='number', min=0, max=1, step=1, class='num-control form-control')
+              input(id='min_mode', name='min_mode', type='number', min=0, max=1, step=1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='mode-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_mode', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='mode-max', type='number', min=0, max=1, step=1, class='num-control form-control')
+              input(id='max_mode', name='max_mode', type='number', min=0, max=1, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='mode-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_mode', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='mode-target', type='number', min=0, max=1, step=1, class='num-control form-control')
+              input(id='target_mode', name='target_mode', type='number', min=0, max=1, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.
       #speech(class='row form-group even')
         label(class='row col-lg-2 col-form-label row-label') Speechiness
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='speech-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_speechiness', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='speech-min', type='number', min=0, max=1, step=1, class='num-control form-control')
+              input(id='min_speechiness', name='min_speechiness', type='number', min=0, max=1, step=1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='speech-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_speechiness', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='speech-max', type='number', min=0, max=1, step=1, class='num-control form-control')
+              input(id='max_speechiness', name='max_speechiness', type='number', min=0, max=1, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='speech-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_speechiness', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='speech-target', type='number', min=0, max=1, step=1, class='num-control form-control')
+              input(id='target_speechiness', name='target_speechiness', type='number', min=0, max=1, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.
       #acoustic(class='row form-group')
         label(class='row col-lg-2 col-form-label row-label') Acousticness
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='acoustic-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_acousticness', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='acoustic-min', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='min_acousticness', name='min_acousticness', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='acoustic-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_acousticness', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='acoustic-max', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='max_acousticness', name='max_acousticness', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='acoustic-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_acousticness', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='acoustic-target', type='number', min=0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='target_acousticness', name='target_acousticness', type='number', min=0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
       #live(class='row form-group even')
         label(class='row col-lg-2 col-form-label row-label') Liveness
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='live-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_liveness', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='live-min', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='min_liveness', name='min_liveness', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='live-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_liveness', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='live-max', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='max_liveness', name='max_liveness', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='live-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_liveness', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='live-target', type='number', min=0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='target_liveness', name='target_liveness', type='number', min=0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
       #valence(class='row form-group')
         label(class='row col-lg-2 col-form-label row-label') Valence
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='valence-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_valence', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='valence-min', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='min_valence', name='min_valence', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='valence-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_valence', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='valence-max', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='max_valence', name='max_valence', type='number', min=0.0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='valence-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_valence', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='valence-target', type='number', min=0, max=1.0, step=0.1, class='num-control form-control')
+              input(id='target_valence', name='target_valence', type='number', min=0, max=1.0, step=0.1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
       #tempo(class='row form-group even')
         label(class='row col-lg-2 col-form-label row-label') Tempo
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='tempo-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_tempo', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='tempo-min', type='number', min=0.0, max=200.0, step=1.0, class='num-control form-control')
+              input(id='min_tempo', name='min_tempo', type='number', min=0.0, max=200.0, step=1.0, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='tempo-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_tempo', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='tempo-max', type='number', min=0.0, max=200.0, step=1.0, class='num-control form-control')
+              input(id='max_tempo', name='max_tempo', type='number', min=0.0, max=200.0, step=1.0, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='tempo-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_tempo', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='tempo-target', type='number', min=0.0, max=200.0, step=1.0, class='num-control form-control')
+              input(id='target_tempo', name='target_tempo', type='number', min=0.0, max=200.0, step=1.0, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration
       #time(class='row form-group')
         label(class='row col-lg-2 col-form-label row-label') Time Signature
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='time-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_time', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='time-min', type='number', min=0, step=1, class='num-control form-control')
+              input(id='min_time', name='min_time', type='number', min=0, step=1, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='time-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_time', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='time-max', type='number', min=0, step=1, class='num-control form-control')
+              input(id='max_time', name='max_time', type='number', min=0, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='time-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_time', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='time-target', type='number', min=0, step=1, class='num-control form-control')
+              input(id='target_time', name='target_time', type='number', min=0, step=1, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text An estimated overall time signature of a track. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure)
       #dur(class='row form-group even')
         label(class='row col-lg-2 col-form-label row-label') Duration (ms)
         div(class='row form-group col-lg-10 align-middle')
           div(class='control-row min row col-lg-3')
-            label(for='dur-min', class='control-label col-form-label col-lg-2') Min
+            label(for='min_duration', class='control-label col-form-label col-lg-2') Min
             div(class='input-class col-lg-10')
-              input(id='dur-min', type='number', min=0, step=0.05, class='num-control form-control')
+              input(id='min_duration', name='min_duration', type='number', min=0, step=0.05, class='num-control form-control')
           div(class='control-row max row col-lg-3')
-            label(for='dur-max', class='control-label col-form-label col-lg-2' ) Max
+            label(for='max_duration', class='control-label col-form-label col-lg-2' ) Max
             div(class='input-class col-lg-10')
-              input(id='dur-max', type='number', min=0, step=0.05, class='num-control form-control')
+              input(id='max_duration', name='max_duration', type='number', min=0, step=0.05, class='num-control form-control')
           div(class='control-row target row col-lg-3')
-            label(for='dur-target', class='control-label col-form-label col-lg-2' ) Target
+            label(for='target_duration', class='control-label col-form-label col-lg-2' ) Target
             div(class='input-class col-lg-10')
-              input(id='dur-target', type='number', min=0, step=0.05, class='num-control form-control')
+              input(id='target_duration', name='target_duration', type='number', min=0, step=0.05, class='num-control form-control')
           div(class='control-row target row col-lg-3')
             text The duration of the track in milliseconds. Enter in terms of minutes and I'll convert to ms (eg 1.25 = 1m12s)
-   #submit-form(class='row')
+      #submit-form(class='row')
         input(id='submit', type='submit', value='Research!', class='btn btn-primary')
