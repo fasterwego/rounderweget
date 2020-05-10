@@ -2,7 +2,11 @@ const express = require('express');
 const router = express.Router();
 const spotify = require('../src/spotifyApi');
 const spotifyApi = spotify.getSpotifyApi();
+
+// variables involved in hacky way of moving data from POST to GET
 var recommendations = {};
+var features = {};
+var identity = {};
 
 /* GET /spotify/ handles the response from spotify with tokens */
 router.get('/', (req, res) => {
@@ -24,19 +28,18 @@ router.get('/login', (req, res) => {
   res.redirect(spotifyApi.createAuthorizeURL(spotify.getScopes(), 'app-state', true));
 });
 
-router.get('/research', (req, res) => {
-  res.render('research', { title: 'Spotify Playlist Research' });
-});
+router.get('/research', (req, res) =>
+  res.render('research', { title: 'Spotify Playlist Research' }));
 
-router.get('/recommendations', (req, res) => {
-  res.render('recommendations', { title: 'Spotify Playlist Research', data: recommendations });
-});
+router.get('/recommendations', (req, res) =>
+  res.render('recommendations', { title: 'Spotify Playlist Research - Recommendations', data: recommendations }));
+
+router.get('/guts', (req, res) =>
+  res.render('guts', { title: 'Spotify Playlist Research - Track Features', data: features }));
 
 router.post('/research', (req, res) => {
-  console.log(JSON.stringify(massageOptions(req.body)));
   spotifyApi.getRecommendations(massageOptions(req.body)).then(
     data => {
-      console.log(JSON.stringify(data));
       // this is a total hack because I don't know enough about express routing
       // though something very similar to this is recommended on stack overflow, so...
       recommendations = data;
@@ -56,6 +59,29 @@ router.get('/genres', (req, res) => {
       res.render('error', err);
     });
 });
+
+router.get('/features', (req, res) => res.render('features', { title: 'Spotify Track Features' }));
+
+router.post('/features', (req, res) => {
+  spotifyApi.getAudioFeaturesForTrack(req.body.trackId).then(
+    data => {
+      console.log(data);
+      // this is a total hack because I don't know enough about express routing
+      // though something very similar to this is recommended on stack overflow, so...
+      features = data.body;
+      res.redirect('guts');
+    }).catch(err => console.log(err));
+});
+
+router.get('/identity', (req, res) => {
+  spotifyApi.getMe().then(
+    data => {
+      identity = data;
+      res.redirect('me');
+    }).catch(err => console.log(err));
+});
+
+router.get('/me', (req, res) => res.render('me', { data: identity }));
 
 const massageOptions = usrOpts => {
   let opts = removeBlankProps(usrOpts);

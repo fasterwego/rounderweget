@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1= title
+  div(class="row")
+    -var json = JSON.stringify(data)
+    p= json

@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  div(class='row form-group')
+    form(action='/spotify/features', method='post')
+      label(for='trackId', class='col-form-label') Track Id
+      input(id='trackId', name='trackId' class='form-control')
+      input(id='submit', type='submit', value='Search!', class='btn btn-primary')
